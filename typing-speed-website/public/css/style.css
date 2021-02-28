@@ -27,7 +27,7 @@ header {
 }
 .typeFaster {
     font-size: 118px;
-    top: -5%;
+    top: -6.75%;
     left: 31.25%;
     color: white;
     text-align: center;
@@ -125,4 +125,16 @@ header {
     left: 5%;
     font-size: 45px;
     font-variant: initial;
+}
+#counter {
+    position: absolute;
+    top: -312.5%;
+    left: 237.5%;
+    font-size: 93px;
+}
+.timerCountDown {
+    position: absolute;
+    top: -220%;
+    left: -17.5%;
+    font-size: 93px;
 }
