@@ -2,6 +2,8 @@ import { render } from "react-dom";
 import Image from 'next/image';
 import React from 'react';
 
+var counter = 0;
+
 function clearInputField() {
   $('#textInput').val(null);
 };
@@ -19,12 +21,14 @@ function showText(text) {
   for(let i=0; i<arr.length; i++) {
     if(arr[i] == text) {
       color = "green";
+      counter++;
       break;
     }
     else {
       continue;
     }
   }
+  console.log(counter);
   $('#showingText').html(text).css(colorParam, color);
 }
 
@@ -70,7 +74,7 @@ export default function Home() {
             </div>
             <div className="inputContainer">
               <input type="text" id="textInput" className="textInput"></input>
-              <button id="button" className="button" onClick={()=>saveText()}>clear</button>
+              <button id="button" className="button" onClick={()=>saveText()}>Submit</button>
             </div>
           </div>
         </div>
