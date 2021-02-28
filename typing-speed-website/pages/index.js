@@ -5,7 +5,7 @@ import React from 'react';
 var counter = 0, wrongCounter = 0, correctCounter = 0;
 let fullText="";
 
-function run() {
+function checkSpacePress() {
   $('#textInput').keydown((e)=>{
     let code = e.code;
     if(code == "Space") {
@@ -90,7 +90,7 @@ export default function Home() {
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <title>TypingSpeed.io</title>
       </head>
-      <body onClick={()=>run()}>
+      <body>
         <header>
           <h2 className="headerName">
             TypingSpeed.io
@@ -125,7 +125,7 @@ export default function Home() {
               <h1 className="counterLabel">words counter</h1>
             </div>
             <div className="inputContainer">
-              <input type="text" id="textInput" className="textInput"></input>
+              <input type="text" id="textInput" onClick={()=>checkSpacePress} className="textInput"></input>
             </div>
           </div>
         </div>
