@@ -1,10 +1,13 @@
 * {
     font-family: 'Poppins', sans-serif;
 }
+body {
+    display: flex;;
+}
 header {
     color:white;
     background-color: #FFA200;
-    height: 20%;
+    height: 12.5%;
     width: 100%;
     position: absolute;
     left: -0.00001%;
@@ -14,7 +17,7 @@ header {
 .headerName {
     font-size: 50px;
     position: relative;
-    top: -7.5%;
+    top: -10%;
     left: 2.5%;
     display: flex;
 }
@@ -24,7 +27,7 @@ header {
 }
 .typeFaster {
     font-size: 118px;
-    top: 7.5%;
+    top: -5%;
     left: 31.25%;
     color: white;
     text-align: center;
@@ -38,43 +41,88 @@ header {
     height: 50%;
     object-fit: cover;
 }
+.rectangles {
+    display: flex;
+    align-items: center;
+}
 .rectangle {
+    display: flex;
     height: 25%;
     border: 2px solid #707070;
-    width: 48.9%;
+    width: 47.75%;
     border-radius: 250px;
     background-color: white;
     position: absolute;
     top: 50%;
-    left: 26%;
+    left: 26.25%;
 }
 .smallRectangle {
-    height: 139px;
+    display: flex;
+    height: 15%;
     border: 2px solid#707070;
-    width: 769px;
+    width: 41.6%;
     border-radius: 250px;
     background-color: white;
     position: absolute;
-    top: 55%;
-    left: 29.5%;
+    top: 55.25%;
+    left: 29.25%;
 }
 .timer {
     display: flex;
     position: absolute;
     top: 80%;
-    left: 10%;
+    left: 9%;
 }
 .circle {
     border-radius: 50%;
-    border: 25px solid #FFC814;
-    /*background: lightblue;*/
-    width: 400%;
-    height: 400%;
+    border: 27.5px solid #FFC814;
+    width: 300%;
+    height: 300%;
     position: absolute;
-    top: -405%;
-    left: -110%;
+    top: -320%;
+    left: -75%;
 }
 .timerLabel {
     position: relative;
-    left: 37.5%;
+    left: 24.75%;
+    font-size: 40px;
+}
+.wordsCounter {
+    display: flex;
+    position: absolute;
+    top: 80%;
+    left: 50%;
+}
+.wordsCounterCircle {
+    border-radius: 50%;
+    border: 27.5px solid #FFC814;
+    width: 105%;
+    height: 300%;
+    position: absolute;
+    top: -320%;
+    left: 195%;
+}
+.counterLabel {
+    position: relative;
+    font-size: 40px;
+    left: 200%;
+}
+.textInput {
+    position: absolute;
+    top: 81.5%;
+    left: 32.5%;
+    width: 35%;
+    height: 6%;
+    font-size: 40px;
+}
+.button {
+    position: absolute;
+    top: 50%;
+}
+#showingText {
+    position: absolute;
+    top: 0%;
+    left: 5%;
+    font-size: 45px;
+    font-variant: initial;
 }
