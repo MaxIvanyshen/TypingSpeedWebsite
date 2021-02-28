@@ -125,7 +125,7 @@ export default function Home() {
               <h1 className="counterLabel">words counter</h1>
             </div>
             <div className="inputContainer">
-              <input type="text" id="textInput" onClick={()=>checkSpacePress} className="textInput"></input>
+              <input type="text" id="textInput" onClick={()=>checkSpacePress()} className="textInput"></input>
             </div>
           </div>
         </div>
