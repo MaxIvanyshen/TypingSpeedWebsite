@@ -79,12 +79,12 @@ header {
     width: 300%;
     height: 300%;
     position: absolute;
-    top: -320%;
-    left: -75%;
+    top: -350%;
+    left: -98%;
 }
 .timerLabel {
     position: relative;
-    left: 24.75%;
+    left: 25%;
     font-size: 40px;
 }
 .wordsCounter {
@@ -99,8 +99,8 @@ header {
     width: 105%;
     height: 300%;
     position: absolute;
-    top: -320%;
-    left: 195%;
+    top: -350%;
+    left: 185%;
 }
 .counterLabel {
     position: relative;
@@ -135,6 +135,6 @@ header {
 .timerCountDown {
     position: absolute;
     top: -220%;
-    left: -17.5%;
+    left: -15.1%;
     font-size: 93px;
 }
