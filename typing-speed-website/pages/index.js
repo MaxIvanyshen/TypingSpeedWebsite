@@ -77,9 +77,7 @@ function timer() {
 }
 
 function finishCountDown() {
-  counter=counter;
-  wrongCounter=wrongCounter;
-  correctCounter=correctCounter;
+  $("#counter").html("0").css("left", "237.5%");
   console.log("count down finished!");
 }
 

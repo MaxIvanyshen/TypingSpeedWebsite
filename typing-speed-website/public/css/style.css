@@ -91,7 +91,7 @@ header {
     display: flex;
     position: absolute;
     top: 80%;
-    left: 50%;
+    left: 51.35%;
 }
 .wordsCounterCircle {
     border-radius: 50%;
@@ -121,7 +121,7 @@ header {
 }
 #showingText {
     position: absolute;
-    top: 0%;
+    top: 1%;
     left: 5%;
     font-size: 45px;
     font-variant: initial;
