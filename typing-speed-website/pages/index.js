@@ -2,10 +2,36 @@ import { render } from "react-dom";
 import Image from 'next/image';
 import React from 'react';
 
+const words = require("../public/text/words.json");
+
 var counter = 0, wrongCounter = 0, correctCounter = 0;
 let fullText="";
+let textToType="";
+let showed=0;
+
+let arr = words.text.split(" ");
+let randomArr=[];
+
+function randomIndex(min, max) {
+  return min+Math.floor((max-min)*Math.random());
+}
+
+function nextText() {
+  if(showed==0) {
+
+    for(var i=0; i<arr.length; ++i) {
+      let r = randomIndex(1, arr.length)
+      textToType=textToType+arr[r]+" ";
+      randomArr[i]=r;
+    }
+
+    $("#showingText").html(textToType);
+    showed++;
+  }
+}
 
 function checkSpacePress() {
+  nextText();
   $('#textInput').keydown((e)=>{
     let code = e.code;
     if(code == "Space") {
@@ -21,19 +47,21 @@ function clearInputField() {
 }
 
 function showText(text) {
-  var arr = ["hello", "dear", "friend", "world"];
-  let colorParam = "color";
+  let wordNumber=0;
   let color = "red";
-  for(let i=0; i<arr.length; i++) {
-    if(arr[i] == text) {
-      color = "green";
-      correctCounter++;
-      counter++;
-      break;
-    }
-    else {
-      continue;
-    }
+  // for(let i=0; i<arr.length; ++i) {
+  //   if(text == arr[i]) {
+  //     color="green";
+  //     correctCounter++;
+  //     counter++;
+  //     break;
+  //   }
+  // }
+  if(text==randomArr[wordNumber]) {
+    color="green";
+    correctCounter++;
+    wordNumber++;
+    counter++;
   }
   if(color == 'red') {
     counter++;
@@ -43,8 +71,8 @@ function showText(text) {
     timer();
   }
   fullText=fullText+" "+text;
-  if(fullText.length >= 25) {
-    fullText=text;
+  if(fullText.length == "") {
+    $("#showingText").nextText();
   }
   if(counter>=10) {    
     $('#counter').html(counter).css("color", "black");
@@ -58,7 +86,6 @@ function showText(text) {
     $('#counter').html(counter).css("color", "black");
   }
   console.log("Correct: " + correctCounter + "\n" + "Wrong: " + wrongCounter);
-  $('#showingText').html(fullText).css(colorParam, color);
 }
 
 function timer() {
@@ -68,20 +95,31 @@ function timer() {
       $('.timerCountDown').html("0:" + time);
     if(time<10&&time>0)
       $('.timerCountDown').html("0:0"+time);
-    time--;
     if(time==0) {
       $('.timerCountDown').html("0:00");
+      $("#counter").html("0").css("left", "237.5%");
       finishCountDown();
     }
+    time--;
   },1000);
 }
 
 function finishCountDown() {
-  $("#counter").html("0").css("left", "237.5%");
-  console.log("count down finished!");
+  $("#textInput").css("pointer-events", "none");
+  calculateWPM();
 }
 
-export default function Home() {
+function calculateWPM() {
+  let wpm = Math.floor((((counter/5) - wrongCounter)/1), 0);
+  console.log(wpm);
+  showResult(wpm);
+}
+
+function showResult(wpm) {
+  $(".arrow").css("display", "unset");
+}
+
+export default function Home(jsonFile) {
   return(
     <html>
       <head>
@@ -109,6 +147,8 @@ export default function Home() {
               <div className="rectangle"></div>
               <div className="smallRectangle">
                 <h3 id="showingText"></h3>
+                {/* <h3 className="typingTextLabel">You typed: </h3> */}
+                <h3 className="typingText"></h3>
               </div>
             </div>
             <div className="timer">
@@ -124,6 +164,9 @@ export default function Home() {
             </div>
             <div className="inputContainer">
               <input type="text" id="textInput" onClick={()=>checkSpacePress()} className="textInput"></input>
+            </div>
+            <div className="arrowContainer">
+              <div className="arrow bounce"></div>
             </div>
           </div>
         </div>
