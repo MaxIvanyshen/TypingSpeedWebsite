@@ -185,3 +185,6 @@ header {
     transform: translateY(-15px);
   }
 }
+.showingTypingText {
+    display: flex;
+}

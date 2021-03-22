@@ -8,6 +8,7 @@ var counter = 0, wrongCounter = 0, correctCounter = 0;
 let fullText="";
 let textToType="";
 let showed=0;
+let wordNumber=0;
 
 let arr = words.text.split(" ");
 let randomArr=[];
@@ -20,11 +21,12 @@ function nextText() {
   if(showed==0) {
 
     for(var i=0; i<arr.length; ++i) {
-      let r = randomIndex(1, arr.length)
-      textToType=textToType+arr[r]+" ";
-      randomArr[i]=r;
+      let r = randomIndex(1, arr.length);
+      let randomElem = arr[r];
+      textToType=textToType+randomElem+" ";
+      randomArr[i]=randomElem;
     }
-
+    $("#showingText").html(null);
     $("#showingText").html(textToType);
     showed++;
   }
@@ -47,10 +49,9 @@ function clearInputField() {
 }
 
 function showText(text) {
-  let wordNumber=0;
   let color = "red";
-  // for(let i=0; i<arr.length; ++i) {
-  //   if(text == arr[i]) {
+  // for(let i=0; i<randomArr.length; ++i) {
+  //   if(text == randomArr[i]) {
   //     color="green";
   //     correctCounter++;
   //     counter++;
@@ -66,13 +67,14 @@ function showText(text) {
   if(color == 'red') {
     counter++;
     wrongCounter++;
+    wordNumber++;
   }
   if(counter==1) {
     timer();
   }
-  fullText=fullText+" "+text;
-  if(fullText.length == "") {
-    $("#showingText").nextText();
+  if(counter == randomArr.length) {
+    showed=0;
+    nextText();
   }
   if(counter>=10) {    
     $('#counter').html(counter).css("color", "black");
@@ -86,6 +88,7 @@ function showText(text) {
     $('#counter').html(counter).css("color", "black");
   }
   console.log("Correct: " + correctCounter + "\n" + "Wrong: " + wrongCounter);
+  $(".typingText").html(text).css("color", color);
 }
 
 function timer() {
@@ -105,7 +108,7 @@ function timer() {
 }
 
 function finishCountDown() {
-  $("#textInput").css("pointer-events", "none");
+  $("#textInput").css("disabled", "disabled");
   calculateWPM();
 }
 
@@ -147,8 +150,10 @@ export default function Home(jsonFile) {
               <div className="rectangle"></div>
               <div className="smallRectangle">
                 <h3 id="showingText"></h3>
-                {/* <h3 className="typingTextLabel">You typed: </h3> */}
-                <h3 className="typingText"></h3>
+                <div className="showingTypingText">
+                  <h3 className="typingTextLabel">You typed: </h3>
+                  <h3 className="typingText"></h3>
+                </div>                
               </div>
             </div>
             <div className="timer">
