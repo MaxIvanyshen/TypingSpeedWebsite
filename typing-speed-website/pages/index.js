@@ -9,8 +9,9 @@ let fullText="";
 let textToType="";
 let showed=0;
 let wordNumber=0;
+let keyPress=0;
 
-let arr = words.text.split(" ");
+let arr = words.words.split(" ");
 let randomArr=[];
 
 function randomIndex(min, max) {
@@ -19,22 +20,24 @@ function randomIndex(min, max) {
 
 function nextText() {
   if(showed==0) {
-
     for(var i=0; i<arr.length; ++i) {
       let r = randomIndex(1, arr.length);
       let randomElem = arr[r];
       textToType=textToType+randomElem+" ";
       randomArr[i]=randomElem;
     }
-    $("#showingText").html(null);
     $("#showingText").html(textToType);
     showed++;
   }
 }
 
 function checkSpacePress() {
-  nextText();
-  $('#textInput').keydown((e)=>{
+  $('#textInput').keydown((e)=>{    
+    if(keyPress==0) {
+      timer();
+      keyPress++;
+    }
+    keyPress++;
     let code = e.code;
     if(code == "Space") {
       showText($('#textInput').val());
@@ -69,9 +72,6 @@ function showText(text) {
     wrongCounter++;
     wordNumber++;
   }
-  if(counter==1) {
-    timer();
-  }
   if(counter == randomArr.length) {
     showed=0;
     nextText();
@@ -88,7 +88,7 @@ function showText(text) {
     $('#counter').html(counter).css("color", "black");
   }
   console.log("Correct: " + correctCounter + "\n" + "Wrong: " + wrongCounter);
-  $(".typingText").html(text).css("color", color);
+  $(".typingText").html(text).css("color", color).css("position", "relative").css("left", "5%");
 }
 
 function timer() {
@@ -109,27 +109,31 @@ function timer() {
 
 function finishCountDown() {
   $("#textInput").css("disabled", "disabled");
+  $("#showingText").html(null);
+  $(".typingText").html(null);
   calculateWPM();
 }
 
 function calculateWPM() {
-  let wpm = Math.floor((((counter/5) - wrongCounter)/1), 0);
+  let wpm = Math.floor((((keyPress/5) - wrongCounter)/1), 0);
   console.log(wpm);
   showResult(wpm);
 }
 
 function showResult(wpm) {
   $(".arrow").css("display", "unset");
+  $(".wpmContainer").css("position", "absolute").css("left", "48.75%").css("top", "115%");
+  $(".wpm").html("WPM: "+wpm).scroll();
 }
 
-export default function Home(jsonFile) {
+export default function Home() {
   return(
     <html>
       <head>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <title>TypingSpeed.io</title>
       </head>
-      <body>
+      <body onLoad={() => nextText()}>
         <header>
           <h2 className="headerName">
             TypingSpeed.io
@@ -151,8 +155,10 @@ export default function Home(jsonFile) {
               <div className="smallRectangle">
                 <h3 id="showingText"></h3>
                 <div className="showingTypingText">
-                  <h3 className="typingTextLabel">You typed: </h3>
-                  <h3 className="typingText"></h3>
+                  <th className="typingTextContainer">
+                    <h3 className="textYouTyped">You typed: </h3>
+                    <h3 className="typingText"></h3>
+                  </th>
                 </div>                
               </div>
             </div>
@@ -169,6 +175,9 @@ export default function Home(jsonFile) {
             </div>
             <div className="inputContainer">
               <input type="text" id="textInput" onClick={()=>checkSpacePress()} className="textInput"></input>
+            </div>
+            <div className="wpmContainer">
+              <h4 className="wpm"></h4>
             </div>
             <div className="arrowContainer">
               <div className="arrow bounce"></div>

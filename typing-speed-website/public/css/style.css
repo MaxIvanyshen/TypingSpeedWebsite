@@ -47,24 +47,24 @@ header {
 }
 .rectangle {
     display: flex;
-    height: 25%;
+    height: 30%;
     border: 2px solid #707070;
     width: 47.75%;
     border-radius: 250px;
     background-color: white;
     position: absolute;
-    top: 50%;
+    top: 47.5%;
     left: 26.25%;
 }
 .smallRectangle {
     display: flex;
-    height: 15%;
+    height: 20%;
     border: 2px solid#707070;
     width: 41.6%;
     border-radius: 250px;
     background-color: white;
     position: absolute;
-    top: 55.25%;
+    top: 52.5%;
     left: 29.25%;
 }
 .timer {
@@ -122,9 +122,10 @@ header {
 #showingText {
     position: absolute;
     top: 3%;
-    left: 5%;
+    left: 4.5%;
     font-size: 45px;
     font-variant: initial;
+    width: 90%;
 }
 #counter {
     position: absolute;
@@ -146,10 +147,12 @@ header {
 .green {
     color: green;
 }
-.typingText {
-    font-size: 40px;
-    position: relative;
-    top: 120%;
+.typingTextContainer {
+    display: flex;
+    font-size: 30px;
+    position: absolute;
+    top: 112.5%;
+    left: 15%;
 }
 .arrow
 {
