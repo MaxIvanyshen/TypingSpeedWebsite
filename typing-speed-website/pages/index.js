@@ -32,8 +32,12 @@ function nextText() {
 }
 
 function checkSpacePress() {
+  let id = 2;
+  document.cookie="user=Max";
+  document.cookie="id="+(id+1);
+  alert(document.cookie);
   $('#textInput').keydown((e)=>{    
-    if(keyPress==0) {
+    if(keyPress==0 && e.code!="Space") {
       timer();
       keyPress++;
     }
@@ -92,7 +96,7 @@ function showText(text) {
 }
 
 function timer() {
-  let time = 59;
+  let time = 5;
   setInterval(() => {
     if(time>=10)
       $('.timerCountDown').html("0:" + time);
@@ -120,10 +124,38 @@ function calculateWPM() {
   showResult(wpm);
 }
 
+function showChart(labels) {  
+  var ctx = document.getElementById('typingChart').getContext('2d');
+  labels.length--;
+  labels.push("July");
+  var chart = new Chart(ctx, {
+    // The type of chart we want to create
+    type: 'line',
+
+    // The data for our dataset
+    data: {
+        labels: labels,
+        datasets: [{
+            label: 'Your Typing Speed Diagram: ',
+            backgroundColor: '#FFC814',
+            borderColor: 'rgb(255, 99, 132)',
+            data: [0, 10, 5, 2, 20, 30, 45]
+        }]
+    },
+
+    //  Configuration options go here
+      options: {}
+    }
+  );
+}
+
 function showResult(wpm) {
   $(".arrow").css("display", "unset");
   $(".wpmContainer").css("position", "absolute").css("left", "48.75%").css("top", "115%");
-  $(".wpm").html("WPM: "+wpm).scroll();
+  let labels =  ['January', 'February', 'March', 'April', 'May', 'June'];
+  showChart(labels);
+  $(".wpmRectangle").css("visibility", "visible");
+  $(".wpm").html("WPM: "+wpm+"\nCorrect typed words: "+correctCounter+"\nWrong typed words: "+wrongCounter+"\nKeypresses: "+keyPress);
 }
 
 export default function Home() {
@@ -131,6 +163,7 @@ export default function Home() {
     <html>
       <head>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
         <title>TypingSpeed.io</title>
       </head>
       <body onLoad={() => nextText()}>
@@ -177,7 +210,12 @@ export default function Home() {
               <input type="text" id="textInput" onClick={()=>checkSpacePress()} className="textInput"></input>
             </div>
             <div className="wpmContainer">
-              <h4 className="wpm"></h4>
+              <div className="wpmRectangle">
+                <div className="diagram">
+                  <canvas id="typingChart"></canvas>
+                </div>
+                <h4 className="wpm"></h4>
+              </div>
             </div>
             <div className="arrowContainer">
               <div className="arrow bounce"></div>

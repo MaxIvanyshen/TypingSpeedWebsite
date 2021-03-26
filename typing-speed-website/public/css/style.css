@@ -191,3 +191,8 @@ header {
 .showingTypingText {
     display: flex;
 }
+.wpmRectangle {
+    visibility: hidden;
+    width: 75%;
+    border: solid 2px black;
+}
